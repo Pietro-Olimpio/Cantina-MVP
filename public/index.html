@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantina Sr. Leão - SENAI</title>
+    <!-- Favicon com a logo do Sr. Leão -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO / NAVBAR (SEM EMOJIS NOS BOTÕES) -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo" onclick="switchTab('tab-welcome')">
+                <img src="logo.png" alt="Logo Cantina Sr. Leão" class="nav-logo-img">
+                <div class="logo-text-group">
+                    <span class="logo-title">Sr. Leão</span>
+                    <span class="logo-subtitle">Cantina SENAI</span>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <nav class="nav-links">
+                    <button class="nav-btn active" data-tab="tab-welcome">Início</button>
+                    <button class="nav-btn" data-tab="tab-create">Cadastrar</button>
+                    <button class="nav-btn" data-tab="tab-list">Produtos</button>
+                    <button class="nav-btn" data-tab="tab-search">Buscar por ID</button>
+                </nav>
+
+                <!-- BOTÃO DE TEMA CLARO / ESCURO -->
+                <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Alternar modo claro ou escuro" title="Alternar tema">
+                    <!-- Ícone Sol (modo escuro) -->
+                    <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <!-- Ícone Lua (modo claro) -->
+                    <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- NOTIFICAÇÕES TOAST -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <main class="container main-content">
+
+        <!-- ABA 1: BOAS-VINDAS (COM OS EMOJIS DO INÍCIO E DAS CATEGORIAS) -->
+        <section id="tab-welcome" class="tab-pane active">
+            <div class="welcome-hero">
+                <div class="welcome-content">
+                    <span class="tag-welcome">🦁 Cantina Oficial SENAI</span>
+                    <h1>Bem-vindo à Cantina do Sr. Leão! 🥪☕</h1>
+                    <p>
+                        O melhor sabor, lanches crocantes e cafés quentinhos para energizar seus estudos e trabalho no SENAI!
+                        Gerencie o cardápio, acompanhe os estoques e controle os preços com facilidade.
+                    </p>
+                    <div class="welcome-actions">
+                        <button class="btn btn-primary" onclick="switchTab('tab-create')">
+                            Cadastrar Produto
+                        </button>
+                        <button class="btn btn-secondary" onclick="switchTab('tab-list')">
+                            Ver Cardápio Completo
+                        </button>
+                        <button class="btn btn-outline" onclick="switchTab('tab-search')">
+                            Consultar por ID
+                        </button>
+                    </div>
+                </div>
+                <div class="welcome-mascot">
+                    <div class="mascot-glow"></div>
+                    <img src="logo.png" alt="Mascote Sr. Leão" class="welcome-lion-img">
+                </div>
+            </div>
+
+            <!-- CARDS DE CATEGORIA DA IMAGEM (COM OS EMOJIS DAS CATEGORIAS) -->
+            <div class="stats-grid">
+                <div class="stat-card category-clickable" onclick="navegarParaCategoria('Salgados')">
+                    <div class="stat-emoji-box emoji-box-orange">
+                        <span class="stat-emoji">🥐</span>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Salgados & Forno</h3>
+                        <p>Coxinhas quentinhas, folhados crocantes e opções assadas na hora.</p>
+                        <span class="category-link">Ver produtos da categoria &rarr;</span>
+                    </div>
+                </div>
+
+                <div class="stat-card category-clickable" onclick="navegarParaCategoria('Bebidas')">
+                    <div class="stat-emoji-box emoji-box-brown">
+                        <span class="stat-emoji">☕</span>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Cafés & Bebidas Geladas</h3>
+                        <p>Cafés expressos, sucos naturais refrescantes e refrigerantes.</p>
+                        <span class="category-link">Ver produtos da categoria &rarr;</span>
+                    </div>
+                </div>
+
+                <div class="stat-card category-clickable" onclick="navegarParaCategoria('Doces')">
+                    <div class="stat-emoji-box emoji-box-gold">
+                        <span class="stat-emoji">🍫</span>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Doces & Sobremesas</h3>
+                        <p>Bolos caseiros, chocolates finos, biscoitos e guloseimas.</p>
+                        <span class="category-link">Ver produtos da categoria &rarr;</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 2: CADASTRAR PRODUTO (SEM EMOJIS) -->
+        <section id="tab-create" class="tab-pane">
+            <div class="section-header">
+                <h2>Cadastrar Novo Produto</h2>
+                <p>Preencha os dados abaixo para adicionar um item ao cardápio da cantina.</p>
+            </div>
+
+            <div class="card form-card">
+                <form id="form-cadastrar">
+                    <div class="form-group">
+                        <label for="cad-nome">Nome do Produto <span class="required">*</span></label>
+                        <input type="text" id="cad-nome" placeholder="Ex: Coxinha de Frango com Catupiry, Suco de Laranja, Bolo de Chocolate..." required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="cad-categoria">Categoria <span class="required">*</span></label>
+                            <select id="cad-categoria" required>
+                                <option value="">Selecione uma categoria...</option>
+                                <option value="Salgados">Salgados</option>
+                                <option value="Bebidas">Bebidas</option>
+                                <option value="Doces">Doces</option>
+                                <option value="Lanches Naturais">Lanches Naturais</option>
+                                <option value="Refeições">Refeições / Pratos</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="cad-preco">Preço (R$) <span class="required">*</span></label>
+                            <input type="number" id="cad-preco" step="0.01" min="0" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group col">
+                            <label for="cad-quantidade">Quantidade em Estoque <span class="required">*</span></label>
+                            <input type="number" id="cad-quantidade" min="0" placeholder="0" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cad-descricao">Descrição / Detalhes (Opcional)</label>
+                        <textarea id="cad-descricao" rows="3" placeholder="Informações de ingredientes, tamanho, se é assado ou frito, etc."></textarea>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary">
+                            Salvar Produto
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            Limpar Campos
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ABA 3: LISTAR TODOS OS PRODUTOS  -->
+        <section id="tab-list" class="tab-pane">
+            <div class="section-header flex-between">
+                <div>
+                    <h2>Cardápio do Sr. Leão</h2>
+                    <p>Consulte, filtre e gerencie todos os itens cadastrados no MongoDB.</p>
+                </div>
+                <button class="btn btn-primary" id="btn-atualizar-lista">
+                    Atualizar Lista
+                </button>
+            </div>
+
+            <!-- FILTRO DE BUSCA E PÍLULAS DE CATEGORIA -->
+            <div class="filter-container">
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <svg class="search-box-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="filtro-busca" placeholder="Buscar por nome, categoria ou ID...">
+                        <button id="btn-limpar-filtro" class="btn-clear-search" style="display: none;" title="Limpar busca">&times;</button>
+                    </div>
+                    <span id="total-produtos-badge" class="badge">0 produto(s)</span>
+                </div>
+
+                <!-- Pílulas rápidas de categoria limpas -->
+                <div class="category-pills" id="category-pills">
+                    <button class="pill active" data-cat="">Todos</button>
+                    <button class="pill" data-cat="Salgados">Salgados</button>
+                    <button class="pill" data-cat="Bebidas">Bebidas</button>
+                    <button class="pill" data-cat="Doces">Doces</button>
+                    <button class="pill" data-cat="Lanches Naturais">Lanches Naturais</button>
+                    <button class="pill" data-cat="Refeições">Refeições</button>
+                    <button class="pill" data-cat="Outros">Outros</button>
+                </div>
+            </div>
+
+            <!-- TABELA DE PRODUTOS -->
+            <div class="card table-card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nome do Item</th>
+                                <th>Categoria</th>
+                                <th>Preço Unitário</th>
+                                <th>Estoque</th>
+                                <th>ID no Banco</th>
+                                <th style="text-align: center;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-produtos-corpo">
+                            <!-- Inserido dinamicamente via script.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="lista-vazia" class="empty-state" style="display: none;">
+                    <div class="empty-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>Nenhum produto cadastrado</h3>
+                    <p>Adicione os primeiros produtos ao cardápio da cantina do SENAI.</p>
+                    <button class="btn btn-primary" onclick="switchTab('tab-create')">
+                        Cadastrar Primeiro Produto
+                    </button>
+                </div>
+
+                <div id="lista-loading" class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Carregando cardápio...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 4: LISTAR / BUSCAR POR ID -->
+        <section id="tab-search" class="tab-pane">
+            <div class="section-header">
+                <h2>Buscar Produto por ID</h2>
+                <p>Consulte diretamente pelo identificador exclusivo do MongoDB (_id).</p>
+            </div>
+
+            <div class="card form-card">
+                <form id="form-buscar-id">
+                    <div class="search-input-group">
+                        <input type="text" id="busca-id-input" placeholder="Cole aqui o ID (ex: 6735a123f890123456789abc)" required>
+                        <button type="submit" class="btn btn-primary">
+                            Buscar
+                        </button>
+                    </div>
+                    <small class="help-text">O ID do MongoDB possui exatamente 24 caracteres hexadecimais.</small>
+                </form>
+            </div>
+
+            <!-- RESULTADO DA BUSCA POR ID -->
+            <div id="resultado-busca-id" class="search-result-area" style="display: none;">
+                <!-- Preenchido via script.js -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL DE ATUALIZAÇÃO -->
+    <div id="modal-editar" class="modal-backdrop" style="display: none;">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Atualizar Produto</h3>
+                <button class="modal-close-btn" id="btn-fechar-modal" title="Fechar">&times;</button>
+            </div>
+            <form id="form-editar">
+                <input type="hidden" id="edit-id">
+                
+                <div class="form-group">
+                    <label for="edit-nome">Nome do Produto <span class="required">*</span></label>
+                    <input type="text" id="edit-nome" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="edit-categoria">Categoria <span class="required">*</span></label>
+                        <select id="edit-categoria" required>
+                            <option value="Salgados">Salgados</option>
+                            <option value="Bebidas">Bebidas</option>
+                            <option value="Doces">Doces</option>
+                            <option value="Lanches Naturais">Lanches Naturais</option>
+                            <option value="Refeições">Refeições / Pratos</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                    <div class="form-group col">
+                        <label for="edit-preco">Preço (R$) <span class="required">*</span></label>
+                        <input type="number" id="edit-preco" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group col">
+                        <label for="edit-quantidade">Estoque <span class="required">*</span></label>
+                        <input type="number" id="edit-quantidade" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-descricao">Descrição / Observações</label>
+                    <textarea id="edit-descricao" rows="3"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-cancelar-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <img src="logo.png" alt="Logo Sr. Leão" class="footer-logo-img">
+            <p><strong>Cantina Sr. Leão</strong> &bull; SENAI &copy; 2026 - O melhor sabor para o seu dia!</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
